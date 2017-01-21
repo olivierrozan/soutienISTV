@@ -1,15 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false"
     pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>ERROR 403</title>
-	</head>
+
+<jsp:include page="header.jsp" />
+	<section>
+			<div class="container">
+	<h1><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> OUPS !</h1>
+	<h2>Accès interdit !</h2>
+	<p>Vous n'êtes pas autorisé à accéder à la page demandée.</p>
 	
-	<body>
-		<h1>ERROR 403</h1>
-		<h2>Forbidden Access</h2>
-		<p>Please contact the administrator</p>
-	</body>
-</html>
+	<c:url value="/" var="profilLink" />
+    <a href="${profilLink}">Retour Connexion</a>
+    </div>
+		</section>
+<jsp:include page="footer.jsp" />
+
+<script>
+    //setTimeout("window.location.href='/soutienISTV/';", 3000); // after 2 minutes
+</script>

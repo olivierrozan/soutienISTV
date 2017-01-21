@@ -1,0 +1,103 @@
+@CHARSET "ISO-8859-1";
+
+body {
+  overflow-x: hidden;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background:#629C49;
+  color:#FFF;
+  position: relative;
+}
+
+.navbarCustom {
+    padding: 25px 0;
+	background:#ECE8E4;
+	border-bottom: 2px solid /*#296012*/rgba(98,156,73,.75);
+}
+
+.navbar-custom .navbar-brand {
+  color: #629C49;
+}
+
+footer {
+	background:#EEE;
+	width:100%;
+	position:absolute;
+	bottom:0;
+}
+
+.copyright {
+	color:#777;
+}
+
+td, th {
+	color:#333;
+}
+
+.dropdown-menu {
+	background:#ECE8E4;
+	padding:0px;
+}
+
+.dropdown-menu li a:hover {
+	/*background:#629C49;*/
+}
+
+.marginFooter {
+	padding:118px;
+}
+
+.jumbotron {
+	color: #333;
+}
+
+.bouton {
+	background: #ffaa00;
+}
+
+.bouton:hover {
+	background: #c68400;
+}
+
+.dropdown-menu .divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #bbb;
+}
+
+
+/**
+ * Demo Styles
+ */
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  
+  min-height: 100%;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+
+textarea {
+	color: #333;
+	width:100%;
+}
