@@ -17,7 +17,7 @@ public class SujetsServices implements ISujetsServices {
 	private ISujetsDAO dao;
 	
 	@Transactional(readOnly=true)
-	public List<Sujet> getSujets() {
-		return dao.getSujets();
+	public List<Sujet> getSujets(int id) {
+		return dao.getSujets(id);
 	}
 }

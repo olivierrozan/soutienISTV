@@ -5,5 +5,5 @@ import java.util.List;
 import com.istv.etu.model.Sujet;
 
 public interface ISujetsDAO {
-	List<Sujet> getSujets();
+	List<Sujet> getSujets(int id);
 }

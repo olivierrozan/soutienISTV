@@ -23,6 +23,7 @@ public class Cours {
 	private String imageTitre;
 	private String libelleCours;
 	private Date dateDerniereModif;
+	private String etat;
 	private int nbVues;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
@@ -61,6 +62,14 @@ public class Cours {
 		this.dateDerniereModif = pdateDerniereModif;
 	}
 	
+	public String getEtat() {
+		return etat;
+	}
+
+	public void setEtat(String etat) {
+		this.etat = etat;
+	}
+
 	public int getNbVues() {
 		return nbVues;
 	}

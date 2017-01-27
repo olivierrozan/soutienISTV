@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.istv.etu.dao.IListCoursesDAO;
+import com.istv.etu.dao.ICoursesDAO;
 import com.istv.etu.model.Cours;
-import com.istv.etu.services.IListCoursesServices;
+import com.istv.etu.services.ICoursesServices;
 
 @Service
-public class ListCoursesServices implements IListCoursesServices {
+public class CoursesServices implements ICoursesServices {
 	
 	@Autowired
-	private IListCoursesDAO dao;
+	private ICoursesDAO dao;
 	
 	@Transactional(readOnly=true)
 	public List<Cours> getCourses() {
@@ -42,5 +42,15 @@ public class ListCoursesServices implements IListCoursesServices {
 		c.setNbVues(0);
 		
 		dao.createCourse(c, id);
+	}
+	
+	@Transactional
+	public void deleteCourse(final String id) {
+		dao.deleteCourse(id);
+	}
+	
+	@Transactional
+	public void validateCourse(final String id) {
+		dao.validateCourse(id);
 	}
 }

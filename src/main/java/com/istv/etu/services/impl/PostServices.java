@@ -18,4 +18,8 @@ public class PostServices implements IPostServices {
 	public List<Post> getPosts(int idSujet) {
 		return dao.getPosts(idSujet);
 	}
+	
+	public void addPost(String contenu, int idSujet, String idUser) {
+		dao.addPost(contenu, idSujet, idUser);
+	}
 }

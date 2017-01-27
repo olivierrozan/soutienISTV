@@ -38,6 +38,11 @@
          </div>
          
          <div class="form-group">
+         <input type="email" name="email" placeholder="email" class="form-control input-lg" value="mail@mail.fr"/>
+         <b><i><form:errors path="nom" cssclass="error"/></i></b>
+         </div>
+         
+         <div class="form-group">
          <form:input path="nom" placeholder="nom" class="form-control input-lg" value="V"/>
          <b><i><form:errors path="nom" cssclass="error"/></i></b>
          </div>
@@ -55,6 +60,10 @@
          </div>
          
          <input type="submit" class="btn btn-primary btn-lg btn-block"/>
+         
+         <c:url value="/" var="url"></c:url>
+    	<a href="${url}">Déjà inscrit? Connectez-vous!</a>
+         
      </form:form>
      </div>
 		</section>

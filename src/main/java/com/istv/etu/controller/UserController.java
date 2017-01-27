@@ -1,6 +1,5 @@
 package com.istv.etu.controller;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.istv.etu.model.User;
 import com.istv.etu.model.form.CreateUserForm;
 import com.istv.etu.model.UpdateUser;
-import com.istv.etu.model.form.UpdateUserForm;
 import com.istv.etu.services.IListUsersServices;
 
 @Controller
@@ -29,13 +27,15 @@ public class UserController {
     private IListUsersServices service;
 	
 	@RequestMapping(value="/profil", method = RequestMethod.GET)
-    public ModelAndView detailsUser(@RequestParam(value="id") final Integer id, final ModelMap pModel, HttpServletRequest request) {
-        
+    public ModelAndView detailsUser(final ModelMap pModel, HttpServletRequest request) {
+        		
 		if (request.getSession().getAttribute("uId") != null) {
 			
-			final User user = service.getOneUser(id.toString());
+			final User user = service.getOneUser(request.getSession().getAttribute("uId").toString());
+			user.setAvatar(user.getAvatar());
 			pModel.addAttribute("user", user);
 			
+			//System.out.println(user.getAvatar());
 	        return new ModelAndView("profil");
 			
 		} else {
@@ -81,45 +81,28 @@ public class UserController {
     @RequestMapping(value="/updateUser", method = RequestMethod.GET)
     public String updateUserForm(final ModelMap pModel, HttpServletRequest request) {
         
-    	if (pModel.get("modification") == null) {
-            final List<User> lListUsers = service.getUsers();
-            final UpdateUserForm lModificationForm = new UpdateUserForm();
-            final List<UpdateUser> lListe = new LinkedList<UpdateUser>();
+    	if (pModel.get("modification") == null && request.getSession().getAttribute("uId") != null) {
+            final User user = service.getOneUser(request.getSession().getAttribute("uId").toString());
             
-            for (final User lUser : lListUsers) {
-                final UpdateUser lModificationUser = new UpdateUser();
-                lModificationUser.setId(lUser.getId());
-                lModificationUser.setNom(lUser.getNom());
-                lModificationUser.setPrenom(lUser.getPrenom());
-                lListe.add(lModificationUser);
-            }
-            
-            lModificationForm.setListUsers(lListe);
-            pModel.addAttribute("modification", lModificationForm);
+            pModel.addAttribute("modification", new User());
+            pModel.addAttribute("user", user);
+            pModel.addAttribute("uId", request.getSession().getAttribute("uId"));
         }
         
         return "updateUserForm";
     }
 
     @RequestMapping(value="/updateUserSubmit", method = RequestMethod.POST)
-    public ModelAndView modifier(@Valid @ModelAttribute(value="modification") final UpdateUserForm pModification, 
+    public ModelAndView modifier(@Valid @ModelAttribute(value="modification") final User pModification, 
             final BindingResult pBindingResult, final ModelMap pModel, HttpServletRequest request) {
 
-        if (!pBindingResult.hasErrors()) {
-            final List<User> lListUsers= new LinkedList<User>();
+        if (!pBindingResult.hasErrors() && request.getSession().getAttribute("uId") != null) {
             
-            for (final UpdateUser lModificationCourse : pModification.getListUsers()) {
-                final User lUser = new User();
-                lUser.setId(lModificationCourse.getId());
-                lUser.setNom(lModificationCourse.getNom());
-                lUser.setPrenom(lModificationCourse.getPrenom());
-                lListUsers.add(lUser);
-            }
-            
-            service.updateUser(lListUsers);
-        }
-
-        //return afficherListe(pModel, request);
-        return new ModelAndView("redirect:/");
+            service.updateUser(pModification);
+            return new ModelAndView("redirect:/home");
+        } else {
+        	System.out.println("update : " + pModification.getId());
+        	return new ModelAndView("redirect:/error403");
+        }        
     }
 }

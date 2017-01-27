@@ -2,10 +2,13 @@ package com.istv.etu.dao.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -39,7 +42,7 @@ public class ListUsersDAO implements IListUsersDAO {
 			e1.printStackTrace();
 		}
 		
-		String url = "jdbc:mysql://localhost:3307/istv";
+		String url = "jdbc:mysql://localhost:3307/istv?autoReconnect=true&useSSL=false";
 		String utilisateur = "root";
 		String motDePasse = "efficient";
 		
@@ -91,7 +94,7 @@ public class ListUsersDAO implements IListUsersDAO {
 			e1.printStackTrace();
 		}
 		
-		String url = "jdbc:mysql://localhost:3307/istv";
+		String url = "jdbc:mysql://localhost:3307/istv?autoReconnect=true&useSSL=false";
 		String utilisateur = "root";
 		String motDePasse = "efficient";
 		
@@ -148,7 +151,7 @@ public class ListUsersDAO implements IListUsersDAO {
 			e1.printStackTrace();
 		}
 		
-		String url = "jdbc:mysql://localhost:3307/istv";
+		String url = "jdbc:mysql://localhost:3307/istv?autoReconnect=true&useSSL=false";
 		String utilisateur = "root";
 		String motDePasse = "efficient";
 		
@@ -171,6 +174,7 @@ public class ListUsersDAO implements IListUsersDAO {
                 
                 user.setLogin(resultat.getString( "login" ));
                 user.setPassword(resultat.getString( "password" ));
+                user.setEmail(resultat.getString( "email" ));
                 user.setAvatar(resultat.getString( "avatar" ));
                 user.setFormation(resultat.getString( "formation" ));
                 user.setNom(resultat.getString( "nom" ));
@@ -211,20 +215,34 @@ public class ListUsersDAO implements IListUsersDAO {
 			e1.printStackTrace();
 		}
 		
-		String url = "jdbc:mysql://localhost:3307/istv";
+		String url = "jdbc:mysql://localhost:3307/istv?autoReconnect=true&useSSL=false";
 		String utilisateur = "root";
 		String motDePasse = "efficient";
 		
 		Connection connexion = null;
-		Statement statement = null;
+		//Statement statement = null;
 	    
 	    try {
 			connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
-		    statement = connexion.createStatement();
+		    //statement = connexion.createStatement();
 		    
-		    String sql = "insert into user(login,password,email,nom,prenom,create_time,statut,avatar,formation) values('" + pUser.getLogin() + "','" + pUser.getPassword() + "','mail@mail.fr','" + pUser.getNom() + "','" + pUser.getPrenom() + "','2017-01-04','" + pUser.getStatut() + "','" + pUser.getAvatar() + "','" + pUser.getFormation() + "')";
-		    statement.executeUpdate(sql);
-		            
+		    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    String date = formatter.format(new Date());
+		    
+		    String sql = "insert into user(login,password,email,nom,prenom,create_time,statut,avatar,formation) values(?,?,?,?,?,?,?,?,?)";
+		    //statement.executeUpdate(sql);
+		    PreparedStatement pstmt = connexion.prepareStatement(sql);
+		    pstmt.setString(1, pUser.getLogin());
+		    pstmt.setString(2, pUser.getPassword());
+		    pstmt.setString(3, pUser.getEmail());
+		    pstmt.setString(4, pUser.getNom());
+		    pstmt.setString(5, pUser.getPrenom());
+		    pstmt.setString(6, date);
+		    pstmt.setString(7, pUser.getStatut());
+		    pstmt.setString(8, pUser.getAvatar());
+		    pstmt.setString(9, pUser.getFormation());
+		    pstmt.executeUpdate();
+		    
 		} catch ( SQLException e ) {
 		    // Gérer les éventuelles erreurs ici 
 			System.out.println(e.getMessage());
@@ -245,22 +263,51 @@ public class ListUsersDAO implements IListUsersDAO {
     }
     
     public void updateUser(final User pUser) {
-    	final CriteriaBuilder lCriteriaBuilder = entityManager.getCriteriaBuilder();
-
-        final CriteriaUpdate<User> lCriteriaUpdate = lCriteriaBuilder.createCriteriaUpdate(User.class);
-        final Root<User> lRoot = lCriteriaUpdate.from(User.class);
-        final Path<User> lPath = lRoot.get("id");
-        final Expression<Boolean> lExpression = lCriteriaBuilder.equal(lPath, pUser.getId());
-        lCriteriaUpdate.where(lExpression);
-        lCriteriaUpdate.set("nom", pUser.getNom());
-        final Query lQuery = entityManager.createQuery(lCriteriaUpdate);
-        final int lRowCount = lQuery.executeUpdate();
-
-        if (lRowCount != 1) {
-            final org.hibernate.Query lHQuery = lQuery.unwrap(org.hibernate.Query.class);
-            final String lSql = lHQuery.getQueryString();
-            throw new RuntimeException("Nombre d'occurences (" + lRowCount + 
-                    ") modifiés différent de 1 pour " + lSql);
-        }
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String url = "jdbc:mysql://localhost:3307/istv?autoReconnect=true&useSSL=false";
+		String utilisateur = "root";
+		String motDePasse = "efficient";
+		
+		Connection connexion = null;
+		//Statement statement = null;
+	    
+	    try {
+			connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    //statement = connexion.createStatement();
+		    
+		    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    String date = formatter.format(new Date());
+		    
+		    String sql = "update user set login=?,email=?,nom=?,prenom=?,create_time=?,avatar=?,formation=? where idUser=?";
+		    //statement.executeUpdate(sql);
+		    PreparedStatement pstmt = connexion.prepareStatement(sql);
+		    pstmt.setString(1, pUser.getLogin());
+		    pstmt.setString(2, pUser.getEmail());
+		    pstmt.setString(3, pUser.getNom());
+		    pstmt.setString(4, pUser.getPrenom());
+		    pstmt.setString(5, date);
+		    pstmt.setString(6, pUser.getAvatar());
+		    pstmt.setString(7, pUser.getFormation());
+		    pstmt.setInt(8, pUser.getId());
+		    pstmt.executeUpdate();
+            
+		} catch ( SQLException e ) {
+		    // Gérer les éventuelles erreurs ici 
+			System.out.println("Update error : " + e.getMessage());
+		} finally {
+		    if ( connexion != null )
+		        try {
+		            // Fermeture de la connexion 
+		            connexion.close();
+		        } catch ( SQLException ignore ) {
+		            // Si une erreur survient lors de la fermeture, il suffit de l'ignorer. 
+		        }
+		}
     }
 }

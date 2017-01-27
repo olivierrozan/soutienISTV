@@ -6,21 +6,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
-import com.istv.etu.dao.IParagraphesDAO;
-import com.istv.etu.model.Paragraphe;
+import com.istv.etu.dao.IThemesDAO;
+import com.istv.etu.model.Theme;
 
 @Repository
-public class ParagraphesDAO implements IParagraphesDAO {
+public class ThemesDAO implements IThemesDAO {
 	
-	public List<Paragraphe> getParagraphes(int idCours) {
-		List<Paragraphe> par = new ArrayList<Paragraphe>();
+	@PersistenceContext
+    private EntityManager entityManager;
+	
+    public List<Theme> getThemes() {
+        
+    	List<Theme> themes = new ArrayList<Theme>();
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -39,26 +44,17 @@ public class ParagraphesDAO implements IParagraphesDAO {
 	    
 	    try {
 			connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
-		    statement = connexion.createStatement();		    
-		    resultat = statement.executeQuery("select * from paragraphe where fk_idCours=" + idCours + ";");
+			
+		    statement = connexion.createStatement();		    		 
+		    resultat = statement.executeQuery("select * from theme;");		    
 		    
 		    // Récupération des données du résultat de la requête de lecture 
 	        while ( resultat.next() ) {
-	        	Paragraphe p = new Paragraphe();
-	        	if (resultat.getString("texte") != null) {
-	        		p.setTexte(resultat.getString("texte").replaceAll("\n", "<br />"));
-	        	} else {
-	        		p.setTexte(null);
-	        	}
+	        	Theme t = new Theme();
 	        	
-	        	if (resultat.getString("imageLocation") != null) {
-	        		p.setImageLocation(resultat.getString("imageLocation"));
-	        	} else {
-	        		p.setImageLocation(null);
-	        	}
-	        	System.out.println("DAO image : " + resultat.getString("imageLocation"));
-	            p.setOrdre(resultat.getInt("ordreParagraphe"));
-	            par.add(p);
+	        	t.setIdTheme(resultat.getInt("idTheme"));
+	            t.setLibelleTheme(resultat.getString("libelleTheme"));
+	            themes.add(t);
 	        }
 
 		} catch ( SQLException e ) {
@@ -74,11 +70,11 @@ public class ParagraphesDAO implements IParagraphesDAO {
 		        }
 		}
 	    
-	    return par;
-	}
-	
-	public void createParagraphe(final Paragraphe p) {
-		try {
+	    return themes;
+    }
+    
+    public void addTheme(final Theme t) {
+    	try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
@@ -96,13 +92,11 @@ public class ParagraphesDAO implements IParagraphesDAO {
 			connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
 		    //statement = connexion.createStatement();
 		    
-		    String sql = "insert into paragraphe(texte,imageLocation,ordreParagraphe,fk_idCours) values(?,?,?,?)";
+		    String sql = "insert into theme(libelleTheme,fk_idUser) values(?,?)";
 		    //statement.executeUpdate(sql);
 		    PreparedStatement pstmt = connexion.prepareStatement(sql);
-		    pstmt.setString(1, p.getTexte());
-		    pstmt.setString(2, p.getImageLocation());
-		    pstmt.setInt(3, p.getOrdre());
-		    pstmt.setInt(4, p.getIdCours());
+		    pstmt.setString(1, t.getLibelleTheme());
+		    pstmt.setInt(2, t.getFk_idUser());		    
 		    pstmt.executeUpdate();
 		            
 		} catch ( SQLException e ) {
@@ -117,5 +111,5 @@ public class ParagraphesDAO implements IParagraphesDAO {
 		            // Si une erreur survient lors de la fermeture, il suffit de l'ignorer. 
 		        }
 		}
-	}
+    }
 }

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,10 +19,9 @@ import com.istv.etu.model.Cours;
 import com.istv.etu.model.Image;
 import com.istv.etu.model.Paragraphe;
 import com.istv.etu.model.User;
-import com.istv.etu.model.form.CreateCourseForm;
 import com.istv.etu.model.form.CreateParagrapheForm;
 import com.istv.etu.services.IImagesServices;
-import com.istv.etu.services.IListCoursesServices;
+import com.istv.etu.services.ICoursesServices;
 import com.istv.etu.services.IListUsersServices;
 import com.istv.etu.services.IParagraphesServices;
 
@@ -36,7 +34,7 @@ public class CoursController {
     private IListUsersServices service;
 	
 	@Autowired
-    private IListCoursesServices servicesCours;
+    private ICoursesServices servicesCours;
 	
 	@Autowired
     private IParagraphesServices servicesP;
@@ -69,7 +67,7 @@ public class CoursController {
 		if (request.getSession().getAttribute("uId") != null) {
 			
 			if (pModel.get("creationCours") == null) {
-	            pModel.addAttribute("creationCours", new CreateCourseForm());
+	            pModel.addAttribute("creationCours", new Cours());
 	        }
 			
 			return new ModelAndView("addCourse");
@@ -80,7 +78,7 @@ public class CoursController {
 	
 	// TODO importer une image dans le server 
 	@RequestMapping(value="/addCourse", method = RequestMethod.POST)
-    public ModelAndView creerSubmit(@Valid @ModelAttribute(value="creationCours") final CreateCourseForm pCreation, 
+    public ModelAndView creerSubmit(@Valid @ModelAttribute(value="creationCours") final Cours pCreation, 
             final BindingResult pBindingResult, final ModelMap pModel, 
             HttpServletRequest request, HttpSession sessionObj) {
 
@@ -130,26 +128,25 @@ public class CoursController {
     public ModelAndView ajouterCoursContenuSubmit(@Valid @ModelAttribute(value="creationCoursContenu") final CreateParagrapheForm pCreation, 
             final BindingResult pBindingResult, final ModelMap pModel, HttpServletRequest request) {
 
-		if (request.getSession().getAttribute("uId") != null && !pBindingResult.hasErrors()) {
-			
+		if (request.getSession().getAttribute("uId") != null && !pBindingResult.hasErrors()) {			
 			
 			if (pCreation.getParagraphes().size() > 0) {
 				for (Paragraphe p: pCreation.getParagraphes()) {
-					if (p.getTexte() != null && p.getOrdre() != 0) {
-						System.out.println("par : " + p.getOrdre() + " : " + p.getTexte());
-						servicesP.createParagraphe(p.getTexte(), p.getOrdre(), p.getIdCours());
-					}					
+					//if (p.getTexte() != null && p.getOrdre() != 0) {
+					System.out.println("CTRL image : " + p.getImageLocation());
+						servicesP.createParagraphe(p.getTexte(), p.getImageLocation(), p.getOrdre(), pCreation.getFk_idCours());
+					//}					
 				}
 			}
 			
-			if (pCreation.getImages().size() > 0) {
+			/*if (pCreation.getImages().size() > 0) {
 				for (Image p: pCreation.getImages()) {
 					if (p.getLocation() != null && p.getOrdre() != 0) {
-						System.out.println("img : " + p.getOrdre() + " : " + p.getLocation());
-						servicesI.createImage(p.getLocation(), p.getOrdre(), p.getIdCours());
+						System.out.println("img : " + p.getOrdre() + " : " + p.getLocation() + ", " + pCreation.getFk_idCours());
+						servicesI.createImage(p.getLocation(), p.getOrdre(), pCreation.getFk_idCours());
 					}					
 				}
-			}			
+			}*/			
 						
         } else {
         	System.out.println("error");
@@ -166,12 +163,13 @@ public class CoursController {
 
 		if (request.getSession().getAttribute("uId") != null) {
 			pModel.addAttribute("libelle", c.getLibelleCours());
-			//logger.info("getWelcome is executed!");
-			List<Paragraphe> paragraphes = servicesP.getParagraphes(c.getIdCours());			
+			
+			List<Paragraphe> paragraphes = servicesP.getParagraphes(c.getIdCours());
+			
 			pModel.addAttribute("paragraphes", paragraphes);
 			
-			List<Image> images = servicesI.getImages(c.getIdCours());			
-			pModel.addAttribute("images", images);
+			/*List<Image> images = servicesI.getImages(c.getIdCours());			
+			pModel.addAttribute("images", images);*/
 			
 	        return new ModelAndView("seeCourse");
 	    }else {

@@ -15,17 +15,17 @@
     	
 		<h1>AJOUTER COURS</h1>
 		
-	<form:form method="post" modelAttribute="creationCours" action="addCourse" enctype="multipart/form-data" class="form center-block">
+	<form:form method="post" modelAttribute="creationCours" action="addCourse" class="form center-block">
          <!--<spring:message code="creation.users.login" />-->
          <div class="form-group col-sm-6">
          	<label for="libelle">Titre du cours</label><br />
-         	<input type="text" id="libelle" name="LibelleCours" placeholder="libelleCours" class="form-control input-lg" style="width:400px;" value="Initiation à la BDD"/>
+         	<input type="text" id="libelle" name="libelleCours" placeholder="libelleCours" class="form-control input-lg" style="width:400px;" value="Initiation à la BDD"/>
          	<b><i><form:errors path="libelleCours" cssclass="error"/></i></b>
          </div>
          
          <div class="form-group col-sm-6">
 	         <label for="img">Logo du cours</label><br />
-	         <input type="file" id="img" name="ImageTitre" placeholder="ImageTitre" class="form-control input-lg" style="width:400px;"/>
+	         <input type="file" id="img" name="imageTitre" placeholder="ImageTitre" class="form-control input-lg" style="width:400px;"/>
 	         <b><i><form:errors path="libelleCours" cssclass="error"/></i></b>
          </div>
          

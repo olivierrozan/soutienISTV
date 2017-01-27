@@ -9,7 +9,8 @@
 	<section>
 			<div class="container">
 	<form:form method="post" modelAttribute="connexion" action="connexionSubmit" class="form col-md-5 center-block">
-         <h3>Connexion</h3>
+        
+        <h3>Connexion</h3>
         <c:choose>
 		    <c:when test="${param.error=='1'}">
 		        <div class="alert alert-danger" role="alert">
@@ -28,17 +29,21 @@
          <!--<spring:message code="creation.users.login" />-->
          <div class="form-group">
          <form:input path="login" placeholder="Login" class="form-control input-lg" value="admin"/>
-         <b><i><form:errors path="login" cssclass="error"/></i></b>
-         </div>
-         
-         <!--<spring:message code="creation.users.password"/>-->
-         <div class="form-group">
-         <form:password path="password" placeholder="Mot de passe" class="form-control input-lg" value="adminPWD59"/>
-         <b><i><form:errors path="password" cssclass="error"/></i></b>
-         </div>
-         
-         <input type="submit" class="btn btn-primary btn-lg btn-block"/>
-     </form:form>
+	         <b><i><form:errors path="login" cssclass="error"/></i></b>
+	         </div>
+	         
+	         <!--<spring:message code="creation.users.password"/>-->
+	         <div class="form-group">
+	         <form:password path="password" placeholder="Mot de passe" class="form-control input-lg" value="adminPWD59"/>
+	         <b><i><form:errors path="password" cssclass="error"/></i></b>
+	         </div>
+	         
+	         <input type="submit" class="btn btn-primary btn-lg btn-block"/>
+	         
+	         <c:url value="/createUserForm" var="url"></c:url>
+	    	<a href="${url}">Pas encore inscrit?</a>
+	     </form:form>
+     
      </div>
 		</section>
 <jsp:include page="footer.jsp" />

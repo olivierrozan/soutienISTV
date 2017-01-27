@@ -17,7 +17,7 @@ import com.istv.etu.model.User;
 @Repository
 public class SujetsDAO implements ISujetsDAO {
 	
-	public List<Sujet> getSujets() {
+	public List<Sujet> getSujets(int id) {
 		List<Sujet> sujets = new ArrayList<Sujet>();
 		
 		try {
@@ -27,7 +27,7 @@ public class SujetsDAO implements ISujetsDAO {
 			e1.printStackTrace();
 		}
 		
-		String url = "jdbc:mysql://localhost:3307/istv";
+		String url = "jdbc:mysql://localhost:3307/istv?autoReconnect=true&useSSL=false";
 		String utilisateur = "root";
 		String motDePasse = "efficient";
 		
@@ -39,8 +39,8 @@ public class SujetsDAO implements ISujetsDAO {
 			connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
 			
 		    statement = connexion.createStatement();		    
-		    //resultat = statement.executeQuery("select * from sujet;");
-		    resultat = statement.executeQuery("select s.idSujet, s.etatSujet, s.titreSujet, MAX(p.datePost) as dateDernPost, u.login from sujet s, post p, user u where s.idSujet=p.fk_idSujet and p.fk_idUser=u.idUser group by s.titreSujet");
+		    String query = "select s.idSujet, s.etatSujet, s.titreSujet, MAX(p.datePost) as dateDernPost, u.login from sujet s, post p, user u where s.idSujet=p.fk_idSujet and p.fk_idUser=u.idUser and s.fk_idTheme=" + String.valueOf(id) + " group by s.titreSujet";
+		    resultat = statement.executeQuery(query);
 		    
 		    
 		    // Récupération des données du résultat de la requête de lecture 

@@ -28,6 +28,16 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     
+    <servlet-mapping>
+        <servlet-name>servlet-dispatcher</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>servlet-dispatcher</servlet-name>
+        <url-pattern>*.png</url-pattern>
+    </servlet-mapping>
+    
     <!-- Declaration de l'utilisation de la ressource JDBC -->
     <resource-ref>
         <description>Ressource JDBC de l'application</description>

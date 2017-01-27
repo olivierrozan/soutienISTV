@@ -2,6 +2,7 @@ package com.istv.etu.dao.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,7 +27,7 @@ public class ImagesDAO implements IImagesDAO {
 			e1.printStackTrace();
 		}
 		
-		String url = "jdbc:mysql://localhost:3307/istv";
+		String url = "jdbc:mysql://localhost:3307/istv?autoReconnect=true&useSSL=false";
 		String utilisateur = "root";
 		String motDePasse = "efficient";
 		
@@ -73,19 +74,24 @@ public class ImagesDAO implements IImagesDAO {
 			e1.printStackTrace();
 		}
 		
-		String url = "jdbc:mysql://localhost:3307/istv";
+		String url = "jdbc:mysql://localhost:3307/istv?autoReconnect=true&useSSL=false";
 		String utilisateur = "root";
 		String motDePasse = "efficient";
 		
 		Connection connexion = null;
-		Statement statement = null;
+		//Statement statement = null;
 	    
 	    try {
 			connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
-		    statement = connexion.createStatement();
+		    //statement = connexion.createStatement();
 		    
-		    String sql = "insert into image(location,ordreImage) values('" + i.getLocation() + "','" + i.getOrdre() + "')";
-		    statement.executeUpdate(sql);
+		    String sql = "insert into image(location,ordreImage,fk_idCours) values(?,?,?)";
+		    //statement.executeUpdate(sql);
+		    PreparedStatement pstmt = connexion.prepareStatement(sql);
+		    pstmt.setString(1, i.getLocation());
+		    pstmt.setInt(2, i.getOrdre());
+		    pstmt.setInt(3, i.getIdCours());
+		    pstmt.executeUpdate();
 		            
 		} catch ( SQLException e ) {
 		    // Gérer les éventuelles erreurs ici 

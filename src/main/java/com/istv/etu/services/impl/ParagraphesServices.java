@@ -22,10 +22,11 @@ public class ParagraphesServices implements IParagraphesServices {
 	}
 	
 	@Transactional
-	public void createParagraphe(final String texte, final int ordre, final int idCours) {
+	public void createParagraphe(final String texte, final String img, final int ordre, final int idCours) {
 		Paragraphe p = new Paragraphe();
 		
 		p.setTexte(texte);
+		p.setImageLocation(img);
 		p.setOrdre(ordre);
 		p.setIdCours(idCours);
 		

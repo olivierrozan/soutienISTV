@@ -80,7 +80,7 @@ public class ListUsersServices implements IListUsersServices {
     	lUser.setLogin(pLogin);
     	lUser.setPassword(pPassword);
     	lUser.setStatut("user");
-    	lUser.setAvatar("img");
+    	lUser.setAvatar("avatar.png");
     	lUser.setFormation(pFormation);
     	
         dao.createUser(lUser);
@@ -95,9 +95,7 @@ public class ListUsersServices implements IListUsersServices {
     }
     
     @Transactional
-    public void updateUser(final List<User> pUser) {
-    	for (final User lUser : pUser) {
-            dao.updateUser(lUser);
-        }
+    public void updateUser(final User pUser) {
+        dao.updateUser(pUser);        
     }
 }

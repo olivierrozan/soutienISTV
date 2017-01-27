@@ -1,6 +1,5 @@
 package com.istv.etu.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,13 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.istv.etu.model.Contenu;
-import com.istv.etu.model.Image;
-import com.istv.etu.model.Paragraphe;
 import com.istv.etu.model.Theme;
 import com.istv.etu.model.User;
 import com.istv.etu.model.form.ConnexionForm;
-import com.istv.etu.services.IListThemesServices;
+import com.istv.etu.services.IThemesServices;
 import com.istv.etu.services.IListUsersServices;
 
 @Controller
@@ -33,7 +29,7 @@ public class IndexController {
     private IListUsersServices service;
 	
 	@Autowired
-    private IListThemesServices serviceTheme;
+    private IThemesServices serviceTheme;
 	
 	@RequestMapping(value="/", method = RequestMethod.GET)
     public String index(final ModelMap pModel, HttpServletRequest request) {

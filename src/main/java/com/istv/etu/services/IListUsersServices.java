@@ -12,5 +12,5 @@ public interface IListUsersServices {
 	User getOneUser(String id);
 	void createUser(final String pNom, final String pPrenom, final String pLogin, final String pPassword, final String pFormation);
 	void deleteUser(final Integer pIdUser);
-	void updateUser(final List<User> pUser);
+	void updateUser(final User pUser);
 }

@@ -1,17 +1,12 @@
 package com.istv.etu.model.form;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class CreateCourseForm {
 	
 	private String imageTitre;
 	
-	@NotEmpty
+	
 	private String libelleCours;
 	
 	private String dateDerniereModif;

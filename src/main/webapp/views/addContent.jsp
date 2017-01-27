@@ -49,7 +49,7 @@
 	    ram += '<label>Paragraphe :</label><br />';
 	    ram += '<c:forEach items="${creationCoursContenu.paragraphes}" var="contact" varStatus="status">';
     	ram += '<input type="hidden" name="paragraphes[' + (order-1) + '].ordre" value="' + order + '"/>';
-    	ram += '<input type="hidden" name="idCours" value="' + ${ idCours } + '"/>';
+    	ram += '<input type="hidden" name="fk_idCours" value="' + ${ idCours } + '"/>';
 	    ram += '<textarea style="width:1080px; height:320px;" class="form-control input-lg" name="paragraphes[' + (order-1) + '].texte"></textarea>';
 	    ram += '</c:forEach>';
 	    ram += '</div><br />';
@@ -72,9 +72,9 @@
 	    var ram = '<div class="image">';
 	    ram += '<label>Image :</label><br />';
 	    ram += '<c:forEach items="${creationCoursContenu.paragraphes}" var="contact" varStatus="status">';
-	    ram += '<input type="hidden" name="images[' + (order-1) + '].ordre" value="' + order + '"/>';
-	    ram += '<input type="hidden" name="idCours" value="' + ${ idCours } + '"/>';
-	    ram += '<input type="file" class="form-control input-lg" name="images[' + (order-1) + '].location" placeholder="Image"/>';
+	    ram += '<input type="hidden" name="paragraphes[' + (order-1) + '].ordre" value="' + order + '"/>';
+	    ram += '<input type="hidden" name="fk_idCours" value="' + ${ idCours } + '"/>';
+	    ram += '<input type="file" class="form-control input-lg" name="paragraphes[' + (order-1) + '].imageLocation" placeholder="Image"/>';
 	    ram += '</c:forEach>';
 	    ram += '</div><br />';
 	

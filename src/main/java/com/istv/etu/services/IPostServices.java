@@ -6,4 +6,5 @@ import com.istv.etu.model.Post;
 
 public interface IPostServices {
 	List<Post> getPosts(int idSujet);
+	void addPost(String contenu, int idSujet, String idUser);
 }

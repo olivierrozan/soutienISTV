@@ -14,24 +14,31 @@ public class Theme {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="IDTHEME")
-    private Integer id;
-    private String libelle;
+    private Integer idTheme;
+    private String libelleTheme;
+    private Integer fk_idUser;
     
-	public Integer getId() {
-		return id;
+	public Integer getIdTheme() {
+		return idTheme;
 	}
 	
-	public void setId(final Integer pId) {
-		this.id = pId;
+	public void setIdTheme(final Integer pId) {
+		this.idTheme = pId;
 	}
 	
-	public String getLibelle() {
-		return libelle;
+	public String getLibelleTheme() {
+		return libelleTheme;
 	}
 	
-	public void setLibelle(final String pLibelle) {
-		this.libelle = pLibelle;
+	public void setLibelleTheme(final String pLibelle) {
+		this.libelleTheme = pLibelle;
 	}
 
-	
+	public Integer getFk_idUser() {
+		return fk_idUser;
+	}
+
+	public void setFk_idUser(Integer fk_idUser) {
+		this.fk_idUser = fk_idUser;
+	}
 }

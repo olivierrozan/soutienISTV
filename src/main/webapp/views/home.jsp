@@ -7,7 +7,16 @@
 <jsp:include page="header.jsp" />
 		<section>
 			<div class="container">		
-	<h1>ACCUEIL</h1>
-    </div>
+				<h2>BIENVENUE DANS LE PARTAGE DE CONNAISSANCES DE L'ISTV </h2><br />
+				
+				<h4>Réservé aux membres de l'ISTV</h4><br />
+				
+				<div>L'application permet :</div>
+				
+				<div>- de partager ses connaissances et de les diffuser en ligne.</div>
+				<div>- d'aider les étudiants en difficultés</div><br />
+				
+				<div>L'objectif étant la réussite scolaire et l'obtention des diplômes rechechés</div>
+    		</div>
 		</section>
 <jsp:include page="footer.jsp" />

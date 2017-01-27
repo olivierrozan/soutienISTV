@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.istv.etu.model.Theme;
 
-public interface IListThemesServices {
+public interface IThemesServices {
 	List<Theme> getThemes();
+	void addTheme(String libelle, int id);
 }

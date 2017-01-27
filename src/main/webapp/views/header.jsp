@@ -62,7 +62,7 @@
 	                        		<a class="page-scroll" href="${profilLink}"><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Cours</a>
 			                    </li>
 			                    <li>
-			                        <c:url value="/forum" var="forumLink" />
+			                        <c:url value="/themeForum" var="forumLink" />
 			                        <a class="page-scroll" href="${forumLink}"><span class="glyphicon glyphicon-leaf"></span> Forum</a>
 			                    </li>
 			                    
@@ -71,28 +71,27 @@
 					              <ul class="dropdown-menu">
 					                
 					                <c:choose>
-								    <c:when test="${uStatut=='admin'}">
-								        
-										<li>					                	
-						                	<c:url value="/allUsers" var="profilLink" />
-						                	<a href="${profilLink}" style="font-size:14px;"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Membres</a>
-					                	</li>
-						                
-						                <li>				                        
-					                        <c:url value="/allCourses" var="hiAction" />
-		 									<a href="${hiAction}" style="font-size:14px;"><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Cours</a>
-					                    </li>
-					                    
-					                    <li>				                        
-					                        <c:url value="/allForum" var="hiAction" />
-		 									<a href="${hiAction}" style="font-size:14px;"><span class="glyphicon glyphicon-leaf"></span> Forum</a>
-					                    </li>	
-								        <li role="separator" class="divider"></li>
-								    </c:when>    
-								</c:choose>
+									    <c:when test="${uStatut=='admin'}">									        
+											<li>					                	
+							                	<c:url value="/allUsers" var="profilLink" />
+							                	<a href="${profilLink}" style="font-size:14px;"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Membres</a>
+						                	</li>
+							                
+							                <li>				                        
+						                        <c:url value="/allCourses" var="hiAction" />
+			 									<a href="${hiAction}" style="font-size:14px;"><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Cours</a>
+						                    </li>
+						                    
+						                    <li>				                        
+						                        <c:url value="/allForum" var="hiAction" />
+			 									<a href="${hiAction}" style="font-size:14px;"><span class="glyphicon glyphicon-leaf"></span> Forum</a>
+						                    </li>	
+									        <li role="separator" class="divider"></li>
+									    </c:when>    
+									</c:choose>
 					                
 					                <li>					                	
-					                	<c:url value="/profil" var="profilLink" ><c:param name="id" value="${uId}"/></c:url>
+					                	<c:url value="/profil" var="profilLink" ></c:url>
 					                	<a href="${profilLink}" style="font-size:14px;"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profil</a>
 				                	</li>
 					                

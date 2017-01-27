@@ -15,7 +15,7 @@
 		<h1>DETAILS <c:out value="${param.id}"/></h1>
 		
 		<div class="jumbotron">
-			<img src="./include/glyphicons_free/glyphicons-1-glass.png" alt="img"/>
+			<img src="./include/images/users/${ user.avatar }" width="75px" height="75px" alt="${ user.avatar }"/>
 			<p>Nom : ${ user.nom } ${ user.prenom }</p>
 			<p>Login : ${ user.login }</p>
 			<p>Formation : ${ user.formation }</p>

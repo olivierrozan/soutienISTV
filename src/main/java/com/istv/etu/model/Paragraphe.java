@@ -3,6 +3,7 @@ package com.istv.etu.model;
 public class Paragraphe extends Contenu {
 	
 	private String texte;
+	private String imageLocation;
 	private int ordre;
 	private int idCours;
 	
@@ -14,6 +15,14 @@ public class Paragraphe extends Contenu {
 		this.texte = texte;
 	}
 	
+	public String getImageLocation() {
+		return imageLocation;
+	}
+
+	public void setImageLocation(String imageLocation) {
+		this.imageLocation = imageLocation;
+	}
+
 	public int getOrdre() {
 		return ordre;
 	}

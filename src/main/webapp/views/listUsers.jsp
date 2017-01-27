@@ -23,7 +23,9 @@
         <tbody>
             <c:forEach items="${listUsers}" var="course">
                 <tr>
-                    <td><c:out value="${course.id}"/></td>
+                    <td>
+                    	<img src="./include/images/users/${ course.avatar }" width="75px" height="75px" alt="${ course.avatar }"/>
+                   	</td>
                     <td><c:out value="${course.nom}"/></td>
                     <td><c:out value="${course.prenom}"/></td>
                     <td>

@@ -9,13 +9,19 @@
 	<section>
 		<div class="container">
 			<h1>${ libelle }</h1>
+			<c:url value="/myCourses" var="url"></c:url>
+    		<a href="${url}"><button class="btn btn-lg bouton">Retour</button></a>
+    	
 			<c:forEach items="${paragraphes}" var="p">	            	            
-    			<p>${ p.texte }</p>
-            </c:forEach>
-            
-            <c:forEach items="${images}" var="i">	            	            
-    			<img src="${ i.location }" alt="${ i.location }" /><br />
-            </c:forEach>
+    			<c:choose>
+    				<c:when test="${ p.texte!=null }">
+    					<p>${ p.texte }</p>
+    				</c:when>
+    				<c:when test="${ p.imageLocation!=null }">
+    					<img src="${ p.imageLocation }" alt="${ p.imageLocation }" /><br />
+    				</c:when>
+    			</c:choose>   			
+            </c:forEach>         
     	</div>
 	</section>
 <jsp:include page="footer.jsp" />

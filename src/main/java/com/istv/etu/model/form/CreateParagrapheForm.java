@@ -10,6 +10,7 @@ public class CreateParagrapheForm {
 	
 	private List<Paragraphe> paragraphes;
 	private List<Image> images;
+	private Integer fk_idCours;
 	
 	public CreateParagrapheForm() {
 		this.paragraphes = new ArrayList<Paragraphe>();
@@ -38,5 +39,13 @@ public class CreateParagrapheForm {
 	
 	public void add(Image i) {
 		this.images.add(i);
+	}
+
+	public Integer getFk_idCours() {
+		return fk_idCours;
+	}
+
+	public void setFk_idCours(Integer fk_idCours) {
+		this.fk_idCours = fk_idCours;
 	}
 }

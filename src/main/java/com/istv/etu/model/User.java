@@ -26,6 +26,7 @@ public class User {
     private String prenom;
     private String login;
     private String password;
+    private String email;
     private Date dateDerniereModif;
     private String statut;
     private String avatar;
@@ -74,6 +75,14 @@ public class User {
 		this.password = password;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Date getDateDerniereModif() {
 		return dateDerniereModif;
 	}

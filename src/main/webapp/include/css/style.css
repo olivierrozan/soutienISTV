@@ -33,6 +33,11 @@ td, th {
 	color:#333;
 }
 
+.libTabCours {
+	font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin:5px;
+}
+
 .dropdown-menu {
 	background:#ECE8E4;
 	padding:0px;
@@ -100,4 +105,28 @@ body {
 textarea {
 	color: #333;
 	width:100%;
+}
+
+.post {
+	background: #ccc;
+	padding: 10px;
+	margin: 5px 0px;
+	color: #333;
+	border-radius: 10px;
+}
+
+.postUser {
+	padding-right: 0px;
+	border-right: 1px solid #333;
+}
+
+.textareaPost {
+	width:910px;
+	height:128px;
+	padding:15px;
+	border-radius: 10px;
+}
+
+.postContenu p {
+	font-size: 24px;
 }

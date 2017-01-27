@@ -42,7 +42,7 @@
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
     
-    <mvc:resources mapping="/include/**" location="/include/" cache-period="31556926"/>
+    <mvc:resources mapping="/include/**" location="/include/" cache-period="3600"/>
     
      <mvc:annotation-driven />
      
