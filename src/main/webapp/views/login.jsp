@@ -28,7 +28,7 @@
          
          <!--<spring:message code="creation.users.login" />-->
          <div class="form-group">
-         <form:input path="login" placeholder="Login" class="form-control input-lg" value="admin"/>
+         <form:input path="login" placeholder="Login" class="form-control input-lg" value="admin_"/>
 	         <b><i><form:errors path="login" cssclass="error"/></i></b>
 	         </div>
 	         

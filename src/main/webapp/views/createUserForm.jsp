@@ -14,49 +14,43 @@
 	
 	<form:form method="post" modelAttribute="creation" action="createUserForm" class="form col-md-5 center-block">
          
-        <c:choose>
-		    <c:when test="${param.error=='1'}">
-		        <h4 style="color:rgb(192,0,0);">Login ou mot de passe incorrect</h4>
-		        
-		    </c:when>    
-		    <c:otherwise>
-		        ${ error } 
-		        <br />
-		    </c:otherwise>
-		</c:choose>
-         
          <!--<spring:message code="creation.users.login" />-->
          <div class="form-group">
-         <form:input path="login" placeholder="Login" class="form-control input-lg" value="V"/>
-         <b><i><form:errors path="login" cssclass="error"/></i></b>
+         	 <b><i class="error"><form:errors path="login" cssclass="error"/></i></b>
+	         <form:input path="login" placeholder="Login" class="form-control input-lg" value="Moderateur"/>         
          </div>
          
          <!--<spring:message code="creation.users.password"/>-->
          <div class="form-group">
-         <form:password path="password" placeholder="Mot de passe" class="form-control input-lg" value="poi"/>
-         <b><i><form:errors path="password" cssclass="error"/></i></b>
+	         <b><i class="error"><form:errors path="password" cssclass="error"/></i></b>
+	         <form:password path="password" placeholder="Mot de passe" class="form-control input-lg" value="modoPWD59"/>	         
          </div>
          
          <div class="form-group">
-         <input type="email" name="email" placeholder="email" class="form-control input-lg" value="mail@mail.fr"/>
-         <b><i><form:errors path="nom" cssclass="error"/></i></b>
+	         <b><i class="error"><form:errors path="password2" cssclass="error"/>${NotMatch}</i></b>
+	         <form:password path="password2" placeholder="Confirmer Mot de passe" class="form-control input-lg" value="modoPWD59"/>	         
          </div>
          
          <div class="form-group">
-         <form:input path="nom" placeholder="nom" class="form-control input-lg" value="V"/>
-         <b><i><form:errors path="nom" cssclass="error"/></i></b>
+	         <b><i class="error"><form:errors path="email" cssclass="error"/></i></b>
+	         <input type="text" name="email" placeholder="email" class="form-control input-lg" value="mail@mail.fr"/>	         
+         </div>
+         
+         <div class="form-group">
+	         <b><i class="error"><form:errors path="nom" cssclass="error"/></i></b>
+	         <form:input path="nom" placeholder="nom" class="form-control input-lg" value="POUTINE"/>	         
          </div>
          
          <!--<spring:message code="creation.users.password"/>-->
          <div class="form-group">
-         <form:input path="prenom" placeholder="prenom" class="form-control input-lg" value="v"/>
-         <b><i><form:errors path="prenom" cssclass="error"/></i></b>
+	         <b><i class="error"><form:errors path="prenom" cssclass="error"/></i></b>
+	         <form:input path="prenom" placeholder="prenom" class="form-control input-lg" value="Vladimir"/>	         
          </div>
          
          <!--<spring:message code="creation.users.password"/>-->
          <div class="form-group">
-         <form:input path="formation" placeholder="formation" class="form-control input-lg" value="BTS SIO"/>
-         <b><i><form:errors path="formation" cssclass="error"/></i></b>
+	         <b><i class="error"><form:errors path="formation" cssclass="error"/></i></b>
+	         <form:input path="formation" placeholder="formation" class="form-control input-lg" value="Doctorat Sociologie"/>	         
          </div>
          
          <input type="submit" class="btn btn-primary btn-lg btn-block"/>

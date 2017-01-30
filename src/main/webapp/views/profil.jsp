@@ -24,8 +24,6 @@
 			<p>${ user.login }</p>
 			<p>Formation : ${ user.formation }</p>
 			
-			<c:url value="/profil" var="url"></c:url>
-   			<a href="${url}"><button class="btn btn-lg bouton">Modifier Mot de passe</button></a>
 		</div>
 	</div>
     </div>

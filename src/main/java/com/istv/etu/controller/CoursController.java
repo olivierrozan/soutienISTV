@@ -19,6 +19,7 @@ import com.istv.etu.model.Cours;
 import com.istv.etu.model.Image;
 import com.istv.etu.model.Paragraphe;
 import com.istv.etu.model.User;
+import com.istv.etu.model.form.CreateCourseForm;
 import com.istv.etu.model.form.CreateParagrapheForm;
 import com.istv.etu.services.IImagesServices;
 import com.istv.etu.services.ICoursesServices;
@@ -67,7 +68,7 @@ public class CoursController {
 		if (request.getSession().getAttribute("uId") != null) {
 			
 			if (pModel.get("creationCours") == null) {
-	            pModel.addAttribute("creationCours", new Cours());
+	            pModel.addAttribute("creationCours", new CreateCourseForm());
 	        }
 			
 			return new ModelAndView("addCourse");
@@ -78,28 +79,29 @@ public class CoursController {
 	
 	// TODO importer une image dans le server 
 	@RequestMapping(value="/addCourse", method = RequestMethod.POST)
-    public ModelAndView creerSubmit(@Valid @ModelAttribute(value="creationCours") final Cours pCreation, 
+    public ModelAndView creerSubmit(@Valid @ModelAttribute(value="creationCours") final CreateCourseForm pCreation, 
             final BindingResult pBindingResult, final ModelMap pModel, 
             HttpServletRequest request, HttpSession sessionObj) {
 
-		boolean error = false;
+		ModelAndView mv = null;
 		
-		if (pCreation.getLibelleCours().isEmpty()) {
-			pBindingResult.rejectValue("libelleCours", "NotEmpty.creation.login");
-		    error = true;
-		}
 		System.out.println("image : " + pCreation.getImageTitre() + ", Titre : " + pCreation.getLibelleCours());
-		if (request.getSession().getAttribute("uId") != null && !pBindingResult.hasErrors() && !error) {
+		
+		if (request.getSession().getAttribute("uId") != null && !pBindingResult.hasErrors()) {
 			
 			servicesCours.createCourse(pCreation.getLibelleCours(), pCreation.getImageTitre(), request.getSession().getAttribute("uId").toString());
 			sessionObj.setAttribute("uLibelle", pCreation.getLibelleCours());
+			System.out.println("cours ok");
+			mv = new ModelAndView("redirect:/addCourseContent");
 			
         } else {
-        	System.out.println("error");
+        	if (pBindingResult.hasErrors()) {
+        		System.out.println("cours error");
+        		mv = new ModelAndView("addCourse");
+        	}        	
         }
         
-        //return ajouterCoursContenu(pModel, request);
-        return new ModelAndView("redirect:/addCourseContent");
+        return mv;
     }
 	
 	@RequestMapping(value="/addCourseContent", method = RequestMethod.GET)
@@ -128,35 +130,25 @@ public class CoursController {
     public ModelAndView ajouterCoursContenuSubmit(@Valid @ModelAttribute(value="creationCoursContenu") final CreateParagrapheForm pCreation, 
             final BindingResult pBindingResult, final ModelMap pModel, HttpServletRequest request) {
 
-		if (request.getSession().getAttribute("uId") != null && !pBindingResult.hasErrors()) {			
-			
+		ModelAndView mv = null;
+		
+		if (request.getSession().getAttribute("uId") != null && !pBindingResult.hasErrors()) {						
 			if (pCreation.getParagraphes().size() > 0) {
 				for (Paragraphe p: pCreation.getParagraphes()) {
-					//if (p.getTexte() != null && p.getOrdre() != 0) {
-					System.out.println("CTRL image : " + p.getImageLocation());
-						servicesP.createParagraphe(p.getTexte(), p.getImageLocation(), p.getOrdre(), pCreation.getFk_idCours());
-					//}					
-				}
+									
+					servicesP.createParagraphe(p.getTexte(), p.getImageLocation(), p.getOrdre(), pCreation.getFk_idCours());						
+				} 
 			}
 			
-			/*if (pCreation.getImages().size() > 0) {
-				for (Image p: pCreation.getImages()) {
-					if (p.getLocation() != null && p.getOrdre() != 0) {
-						System.out.println("img : " + p.getOrdre() + " : " + p.getLocation() + ", " + pCreation.getFk_idCours());
-						servicesI.createImage(p.getLocation(), p.getOrdre(), pCreation.getFk_idCours());
-					}					
-				}
-			}*/			
-						
+			mv = new ModelAndView("redirect:/myCourses");
         } else {
         	System.out.println("error");
+        	mv = new ModelAndView("addContent");
         }
         
-        //return ajouterCours(pModel, request);
-        return new ModelAndView("redirect:/home");
+        return mv;
     }
 	
-	// TODO afficher les images et les paragraphes dans l'ordre
 	@RequestMapping(value="/seeCourse", method = RequestMethod.POST)
     public ModelAndView voirCours(@Valid @ModelAttribute(value="creationCoursContenu") final Cours c,
     		final ModelMap pModel, HttpServletRequest request) {

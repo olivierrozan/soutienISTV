@@ -56,7 +56,7 @@ public class ParagraphesDAO implements IParagraphesDAO {
 	        	} else {
 	        		p.setImageLocation(null);
 	        	}
-	        	System.out.println("DAO image : " + resultat.getString("imageLocation"));
+	        	
 	            p.setOrdre(resultat.getInt("ordreParagraphe"));
 	            par.add(p);
 	        }

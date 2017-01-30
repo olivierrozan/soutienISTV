@@ -75,16 +75,8 @@ public class IndexController {
         	int id = service.getId(lListUsers, login);
         	sessionObj.setAttribute("uId", id);
         	
-        	System.out.println("Connecté : " + statut);
-        	System.out.println("Id : " + id);
-        	System.out.println("Login : " + login);
-        	System.out.println("Statut : " + statut);
-        	
-    		//pModel.addAttribute("listUsers", lListUsers);
-        	        	
         	return new ModelAndView("redirect:/home");
-        } else {
-        	//String param = request.getParameter("error");
+        } else {       	
         	pModel.addAttribute("error", "1");
         	return new ModelAndView("redirect:/");
         }

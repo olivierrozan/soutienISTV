@@ -79,24 +79,26 @@ public class ForumController {
     public ModelAndView listPost(@Valid @ModelAttribute(value="onePost") final Sujet s, @Valid @ModelAttribute(value="postReply") final Post p,
             final BindingResult pBindingResult, final ModelMap pModel, HttpServletRequest request) {
 
-        if (request.getSession().getAttribute("uId") != null && !pBindingResult.hasErrors()) {
+        ModelAndView mv = null;
+		
+		if (request.getSession().getAttribute("uId") != null && !pBindingResult.hasErrors()) {
             if (p.getContenu() != null) {
-            	PServices.addPost(p.getContenu(), s.getId(), request.getSession().getAttribute("uId").toString());
-            	
+            	PServices.addPost(p.getContenu(), s.getId(), request.getSession().getAttribute("uId").toString());    
             }
+			    
             System.out.println(p.getContenu());
+            
         	List<Post> posts = PServices.getPosts(s.getId());
             pModel.addAttribute("idSujet", s.getId());
             pModel.addAttribute("posts", posts);
             pModel.addAttribute("idUser", request.getSession().getAttribute("uId"));
         	pModel.addAttribute("titreSujet", s.getTitre());
         	
-        	/*SimpleDateFormat formater = new SimpleDateFormat("'le' dd MMMM yyyy 'à' HH:mm:ss");
-            
-        	System.out.println(formater.format(posts.get(0).getDatePost()));
-            System.out.println(formater.format(new Date()));*/
+        	mv = new ModelAndView("post");
+        }else {
+        	mv = new ModelAndView("redirect:/error403");
         }
         
-        return new ModelAndView("post");
+        return mv;
     }
 }

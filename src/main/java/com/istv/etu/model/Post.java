@@ -3,9 +3,12 @@ package com.istv.etu.model;
 import java.util.Date;
 
 public class Post {
+		
 	private int idPost;
 	private Date datePost;
+	
 	private String contenu;
+	
 	private Sujet sujet = new Sujet();
 	private User user = new User();
 	

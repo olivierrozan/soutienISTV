@@ -3,8 +3,10 @@ package com.istv.etu.model.form;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class ConnexionForm {
+	
 	@NotEmpty
     private String login;
+	
     @NotEmpty
     private String password;
     
@@ -20,5 +22,4 @@ public class ConnexionForm {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 }

@@ -10,7 +10,7 @@
 	<section>
 			<div class="container">
 	<!--  <div class="col-sm-6">-->
-		<c:url value="/home" var="url"></c:url>
+		<c:url value="/myCourses" var="url"></c:url>
     	<a href="${url}"><button class="btn btn-lg bouton">Retour</button></a>
     	
 		<h1>AJOUTER COURS</h1>
@@ -18,15 +18,16 @@
 	<form:form method="post" modelAttribute="creationCours" action="addCourse" class="form center-block">
          <!--<spring:message code="creation.users.login" />-->
          <div class="form-group col-sm-6">
-         	<label for="libelle">Titre du cours</label><br />
-         	<input type="text" id="libelle" name="libelleCours" placeholder="libelleCours" class="form-control input-lg" style="width:400px;" value="Initiation à la BDD"/>
+         	<label for="libelle">Titre du cours (8 à 64 caractères)</label><br />
          	<b><i><form:errors path="libelleCours" cssclass="error"/></i></b>
+         	<input type="text" id="libelle" name="libelleCours" placeholder="libelleCours" class="form-control input-lg" style="width:400px;" value="Initiation à la BDD"/>         	
          </div>
          
          <div class="form-group col-sm-6">
 	         <label for="img">Logo du cours</label><br />
+	         <b><i><form:errors path="ImageTitre" cssclass="error"/></i></b>
 	         <input type="file" id="img" name="imageTitre" placeholder="ImageTitre" class="form-control input-lg" style="width:400px;"/>
-	         <b><i><form:errors path="libelleCours" cssclass="error"/></i></b>
+	         
          </div>
          
          <div class="clearfix"></div>

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.istv.etu.dao.IListUsersDAO;
 import com.istv.etu.model.User;
+import com.istv.etu.model.form.UpdateUserForm;
 import com.istv.etu.services.IListUsersServices;
 
 @Service
@@ -71,19 +72,28 @@ public class ListUsersServices implements IListUsersServices {
     }
     
     @Transactional
-    public void createUser(final String pNom, final String pPrenom, final String pLogin, final String pPassword, final String pFormation) {
-    	final User lUser = new User();
+    public Boolean createUser(final String pNom, final String pPrenom, final String pLogin, final String pEmail, final String pPassword, final String pPassword2, final String pFormation) {
     	
-    	lUser.setNom(pNom);
-    	lUser.setPrenom(pPrenom);
-    	lUser.setDateDerniereModif(new Date());
-    	lUser.setLogin(pLogin);
-    	lUser.setPassword(pPassword);
-    	lUser.setStatut("user");
-    	lUser.setAvatar("avatar.png");
-    	lUser.setFormation(pFormation);
+    	if (pPassword.equals(pPassword2)) {
+    		final User lUser = new User();
+        	
+        	lUser.setNom(pNom);
+        	lUser.setPrenom(pPrenom);
+        	lUser.setDateDerniereModif(new Date());
+        	lUser.setLogin(pLogin);
+        	lUser.setEmail(pEmail);
+        	lUser.setPassword(pPassword);
+        	lUser.setStatut("user");
+        	lUser.setAvatar("avatar.png");
+        	lUser.setFormation(pFormation);
+        	
+            dao.createUser(lUser);
+            
+            return true;
+    	} else {
+    		return false;
+    	}
     	
-        dao.createUser(lUser);
     }
     
     @Transactional
@@ -95,7 +105,31 @@ public class ListUsersServices implements IListUsersServices {
     }
     
     @Transactional
-    public void updateUser(final User pUser) {
-        dao.updateUser(pUser);        
+    public void updateUser(final UpdateUserForm pUser, final String idUser) {
+        dao.updateUser(pUser, idUser);        
+    }
+    
+    @Transactional
+    public String updatePassword(final String oldPwd, final String newPwd, final String newPwd2, final String idUser) {
+    	
+    	User u = this.getOneUser(idUser);
+    	String err = "";
+    	
+    	if (oldPwd.equals(u.getPassword()) && newPwd.equals(newPwd2)) {
+    		dao.updatePassword(newPwd, idUser);
+    		err = "ok";
+    	} else {
+    		if (!oldPwd.equals(u.getPassword())) {
+    			
+    			err = "Mauvais mot de passe";
+    		}
+    		
+    		if (!newPwd.equals(newPwd2)) {
+    			
+    			err = "Mots de passe différents";
+    		}
+    	}
+		
+    	return err;
     }
 }

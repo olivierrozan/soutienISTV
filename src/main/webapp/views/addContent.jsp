@@ -10,7 +10,7 @@
 	<section>
 			<div class="container">
 	<!--  <div class="col-sm-6">-->
-		<c:url value="/home" var="url"></c:url>
+		<c:url value="/addCourse" var="url"></c:url>
     	<a href="${url}"><button class="btn btn-lg bouton">Retour</button></a>
     	
     	<button id="ajouterParagraphe" class="btn btn-sm btn-primary" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> P</button>
@@ -22,14 +22,13 @@
 		<h1>AJOUTER CONTENU ${ idCours }</h1>
 		
 	<form:form method="post" modelAttribute="creationCoursContenu" action="addCourseContent" class="form center-block">
-         <!--<spring:message code="creation.users.login" />-->
-         
+         <b><i class="error"><form:errors path="fk_idCours" cssclass="error"/></i></b>
 		<div class="paragraphes">
 			
 		</div><br />
          
          <div class="form-group">
-         	<input type="submit" class="btn btn-primary btn-lg btn-block"/>
+         	<input id="submit" type="submit" class="btn btn-primary btn-lg btn-block"/>
          </div>
          
      </form:form>
@@ -48,14 +47,14 @@
 	    var ram = '<div class="paragraphe">';
 	    ram += '<label>Paragraphe :</label><br />';
 	    ram += '<c:forEach items="${creationCoursContenu.paragraphes}" var="contact" varStatus="status">';
+	    ram += '<b><i class="error"><form:errors path="paragraphes[' + (order-1) + '].texte" cssclass="error"/></i></b>';
     	ram += '<input type="hidden" name="paragraphes[' + (order-1) + '].ordre" value="' + order + '"/>';
     	ram += '<input type="hidden" name="fk_idCours" value="' + ${ idCours } + '"/>';
-	    ram += '<textarea style="width:1080px; height:320px;" class="form-control input-lg" name="paragraphes[' + (order-1) + '].texte"></textarea>';
+	    ram += '<textarea style="width:1080px; height:320px;" class="form-control input-lg" name="paragraphes[' + (order-1) + '].texte" required></textarea>';
 	    ram += '</c:forEach>';
 	    ram += '</div><br />';
 	
 	    $(".paragraphes").append(ram);
-	    
 	});
 	
 	$("#supprimerParagraphe").on("click", function() {

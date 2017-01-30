@@ -1,12 +1,16 @@
 package com.istv.etu.model.form;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class CreateCourseForm {
 	
-	private String imageTitre;
+	private String imageTitre;	
 	
-	
+	@NotEmpty
+	@Size(min=8, max=64)
 	private String libelleCours;
 	
 	private String dateDerniereModif;

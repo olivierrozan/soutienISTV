@@ -130,3 +130,8 @@ textarea {
 .postContenu p {
 	font-size: 24px;
 }
+
+.error {
+	color: #b00;
+	font-size: 16px;
+}

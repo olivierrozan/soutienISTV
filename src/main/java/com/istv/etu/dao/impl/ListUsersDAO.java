@@ -25,6 +25,7 @@ import org.springframework.stereotype.Repository;
 import com.istv.etu.dao.IListUsersDAO;
 import com.istv.etu.model.Cours;
 import com.istv.etu.model.User;
+import com.istv.etu.model.form.UpdateUserForm;
 
 @Repository
 public class ListUsersDAO implements IListUsersDAO {
@@ -170,8 +171,7 @@ public class ListUsersDAO implements IListUsersDAO {
 		    List<Cours> cours = new ArrayList<Cours>();
 		    
             while (resultat.next()) {
-            	user.setId(resultat.getInt( "idUser" ));
-                
+            	user.setId(resultat.getInt( "idUser" ));                
                 user.setLogin(resultat.getString( "login" ));
                 user.setPassword(resultat.getString( "password" ));
                 user.setEmail(resultat.getString( "email" ));
@@ -184,9 +184,11 @@ public class ListUsersDAO implements IListUsersDAO {
                 resultList.add(resultat);
                 
                 Cours c = new Cours();
-                c.setIdCours(resultList.get(0).getInt("id"));
+            	c.setIdCours(resultList.get(0).getInt("id"));
                 c.setLibelleCours(resultList.get(0).getString("l"));
+	            
                 cours.add(c);
+                
                 user.setCours(cours);
             }
                        
@@ -262,7 +264,7 @@ public class ListUsersDAO implements IListUsersDAO {
         entityManager.remove(lUser);
     }
     
-    public void updateUser(final User pUser) {
+    public void updateUser(final UpdateUserForm pUser, final String idUser) {
     	try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e1) {
@@ -294,12 +296,49 @@ public class ListUsersDAO implements IListUsersDAO {
 		    pstmt.setString(5, date);
 		    pstmt.setString(6, pUser.getAvatar());
 		    pstmt.setString(7, pUser.getFormation());
-		    pstmt.setInt(8, pUser.getId());
+		    pstmt.setString(8, idUser);
 		    pstmt.executeUpdate();
             
 		} catch ( SQLException e ) {
 		    // Gérer les éventuelles erreurs ici 
 			System.out.println("Update error : " + e.getMessage());
+		} finally {
+		    if ( connexion != null )
+		        try {
+		            // Fermeture de la connexion 
+		            connexion.close();
+		        } catch ( SQLException ignore ) {
+		            // Si une erreur survient lors de la fermeture, il suffit de l'ignorer. 
+		        }
+		}
+    }
+    
+    public void updatePassword(final String pwd, final String idUser) {
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String url = "jdbc:mysql://localhost:3307/istv?autoReconnect=true&useSSL=false";
+		String utilisateur = "root";
+		String motDePasse = "efficient";
+		
+		Connection connexion = null;
+	    
+	    try {
+			connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    
+		    String sql = "update user set password=? where idUser=?;";
+		    PreparedStatement pstmt = connexion.prepareStatement(sql);
+		    pstmt.setString(1, pwd);
+		    pstmt.setString(2, idUser);
+		    
+		    pstmt.executeUpdate();		    
+		} catch ( SQLException e ) {
+		    // Gérer les éventuelles erreurs ici 
+			System.out.println(e.getMessage());
 		} finally {
 		    if ( connexion != null )
 		        try {

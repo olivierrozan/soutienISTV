@@ -40,6 +40,7 @@
 					<form:form method="post" modelAttribute="postReply" action="post" class="form center-block">
 			         	<input type="hidden" name="id" value="${ idSujet }"/>
 			         	<input type="hidden" name="titre" value="${ titreSujet }"/>
+			         	
 			         	<textarea class="textareaPost" name="contenu" required></textarea>
 			         	<input type="submit" class="btn btn-primary" value="Envoyer"/><br />
 		   			</form:form>
