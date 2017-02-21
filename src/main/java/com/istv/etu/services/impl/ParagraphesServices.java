@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.istv.etu.dao.IParagraphesDAO;
 import com.istv.etu.model.Paragraphe;
+import com.istv.etu.model.form.UpdateParagrapheForm;
 import com.istv.etu.services.IParagraphesServices;
 
 @Service
@@ -28,8 +29,24 @@ public class ParagraphesServices implements IParagraphesServices {
 		p.setTexte(texte);
 		p.setImageLocation(img);
 		p.setOrdre(ordre);
-		p.setIdCours(idCours);
-		
+		p.setFk_idCours(idCours);
+				
 		dao.createParagraphe(p);
+	}
+	
+	@Transactional
+	public void updateParagraphe(UpdateParagrapheForm par) {
+		Paragraphe p = new Paragraphe();
+		
+		p.setTexte(par.getTexte());
+		p.setImageLocation(par.getImageLocation());
+		p.setIdParagraphe(par.getIdParagraphe());
+		
+		dao.updateParagraphe(p);
+	}
+	
+	@Transactional(readOnly=true)
+	public int getOrderMax(final int idCours){
+		return dao.getOrderMax(idCours);
 	}
 }

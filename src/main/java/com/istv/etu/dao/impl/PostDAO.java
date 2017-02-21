@@ -21,15 +21,19 @@ import com.istv.etu.model.User;
 @Repository
 public class PostDAO implements IPostDAO {
 	
-	public List<Post> getPosts(int idSujet) {
-		List<Post> posts = new ArrayList<Post>();
-		
+	public void jdbc() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+	
+	public List<Post> getPosts(int idSujet) {
+		List<Post> posts = new ArrayList<Post>();
+		
+		jdbc();
 		
 		String url = "jdbc:mysql://localhost:3307/istv?autoReconnect=true&useSSL=false";
 		String utilisateur = "root";
@@ -90,12 +94,11 @@ public class PostDAO implements IPostDAO {
 	}
 	
 	public void addPost(String contenu, int idSujet, String idUser) {
+
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e1) {
-			/* TODO Changer format date : 2016-12-01 -> 1 Décembre 2016
-			 * 		
-			 */
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -122,6 +125,45 @@ public class PostDAO implements IPostDAO {
 		    pstmt.setString(4, idUser);
 		    pstmt.executeUpdate();
 		    
+		} catch ( SQLException e ) {
+		    // Gérer les éventuelles erreurs ici 
+			System.out.println(e.getMessage());
+		} finally {
+		    if ( connexion != null )
+		        try {
+		            // Fermeture de la connexion 
+		            connexion.close();
+		        } catch ( SQLException ignore ) {
+		            // Si une erreur survient lors de la fermeture, il suffit de l'ignorer. 
+		        }
+		}
+	}
+	
+	public void postResolu(int id) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String url = "jdbc:mysql://localhost:3307/istv?autoReconnect=true&useSSL=false";
+		String utilisateur = "root";
+		String motDePasse = "efficient";
+		
+		Connection connexion = null;
+	    
+	    try {
+			connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    
+		    String sql = "update sujet set etatSujet=? where idSujet=?;";
+		    PreparedStatement pstmt = connexion.prepareStatement(sql);
+		    		    
+		    pstmt.setString(1, "Résolu");
+		    pstmt.setInt(2, id);
+		    
+		    pstmt.executeUpdate();	
+		            
 		} catch ( SQLException e ) {
 		    // Gérer les éventuelles erreurs ici 
 			System.out.println(e.getMessage());

@@ -14,21 +14,12 @@
 		<c:url value="/home" var="url"></c:url>
     	<a href="${url}"><button class="btn btn-lg bouton">Retour</button></a>   	
     	
-		<button class="btn btn-lg btn-success" role="button" data-toggle="collapse" data-target="#add">
-			<span id="a" class="glyphicon glyphicon-plus"></span>
-			Ajouter Theme
-		</button>	
-		
-		<div id="add" class="collapse out"><br />
-			<form class="form-inline" role="form" action="themeForum" method="POST">
-				<div class="form-group">										
-					<input type="text" class="form-control" id="nom" name="libelleTheme" placeholder="theme">
-				</div>
-				<button type="submit" class="btn btn-default">Valider</button>
-			</form>
-		</div>
-    	
 		<h1>FORUM - Themes</h1>
+		<c:choose>
+			<c:when test="${ not empty ok }">
+				<br /><b><i class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> ${ok}</i></b><br /><br />
+			</c:when>
+		</c:choose>	
 		<table class="table table-striped">
 			<tr>
 				<th>TITRE</th>				

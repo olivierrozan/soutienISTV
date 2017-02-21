@@ -21,9 +21,17 @@
 			<p>Formation : ${ user.formation }</p>
 			
 			<h3>Liste des cours : </h3>
-			<c:forEach items="${cours}" var="cours">
-	            <p><c:out value="${cours.libelleCours}"/></p>
-            </c:forEach>
+			<c:choose>
+				<c:when test="${cours != null}">
+					<c:forEach items="${cours}" var="cours">
+			            <p><c:out value="${cours.libelleCours}"/></p>
+		            </c:forEach>
+				</c:when>
+				<c:otherwise>
+					<p>Aucun cours</p>
+				</c:otherwise>
+			</c:choose>
+			
 		</div>
 	</div>
     </div>

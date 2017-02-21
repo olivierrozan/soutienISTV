@@ -22,4 +22,8 @@ public class PostServices implements IPostServices {
 	public void addPost(String contenu, int idSujet, String idUser) {
 		dao.addPost(contenu, idSujet, idUser);
 	}
+	
+	public void postResolu(int id) {
+		dao.postResolu(id);
+	}
 }

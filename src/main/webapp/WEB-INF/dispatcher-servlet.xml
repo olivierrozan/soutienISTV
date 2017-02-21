@@ -28,6 +28,31 @@
         </property>
     </bean>
     
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		 <!-- setting maximum upload size -->
+		<property name="maxUploadSize" value="2000000" />
+
+	</bean>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	    <!-- SMTP settings -->
+	    <property name="host" value="smtp.gmail.com" />
+	    <property name="port" value="587" />
+	    <property name="username" value="rozan.olivier@gmail.com" />
+	    <property name="password" value="adminPWD59&amp;" />
+	 
+	    <property name="javaMailProperties">
+	        <!-- additional properties specific to JavaMail -->
+	        <props>
+	            <prop key="mail.transport.protocol">smtp</prop>
+	            <prop key="mail.smtp.auth">true</prop>
+	            <prop key="mail.smtp.starttls.enable">true</prop>
+	        </props>
+	    </property>
+	</bean>
+
+	
      <tx:annotation-driven transaction-manager="transactionManager" />
 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -41,6 +66,15 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
+    
+    <!-- declare datasource bean -->
+	 <bean id="dataSourceMySQL"
+	  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	  <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	  <property name="url" value="jdbc:mysql://localhost:3307/istv" />
+	  <property name="username" value="root" />
+	  <property name="password" value="efficient" />
+	 </bean>
     
     <mvc:resources mapping="/include/**" location="/include/" cache-period="3600"/>
     

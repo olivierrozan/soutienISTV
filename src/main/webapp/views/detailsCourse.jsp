@@ -8,20 +8,31 @@
 
 <jsp:include page="header.jsp" />
 	<section>
-			<div class="container">
-	<div class="col-sm-6">
-		<c:url value="/allCourses" var="url"></c:url>
-    	<a href="${url}"><button class="btn btn-lg bouton">Retour</button></a>
-		
-		<h1>DETAILS COURS <c:out value="${param.id}"/></h1>
-		
-		<div class="jumbotron">
-			
-			<p>${ courseDetail.libelleCours }</p>
-			<div>Ecrit par : ${ courseDetail.user.login }</div>
-			<div>Le <fmt:formatDate value="${courseDetail.dateDerniereModif}" pattern="EEEEE d MMMMM yyyy HH:mm:ss" /></div>
-		</div>
-	</div>
-    </div>
+		<div class="container">
+			<div class="col-sm-12">
+				<a><button class="btn btn-lg bouton" onclick="history.back(-1)">Retour</button></a>
+				
+				<h1>DETAILS COURS</h1>
+				
+				<div class="jumbotron">
+					
+					<h3>${ courseDetail.libelleCours }</h3>
+					<h4>Ecrit par : ${ courseDetail.user.login }</h4>
+					<h4>Le <fmt:formatDate value="${courseDetail.dateDerniereModif}" pattern="EEEEE d MMMMM yyyy HH:mm:ss" /></h4>
+					<h4>Vu ${ courseDetail.nbVues } fois</h4><br />
+					
+					<c:forEach items="${paragraphes}" var="p">	            	            
+		    			<c:choose>
+		    				<c:when test="${ p.texte!=null }">
+		    					<p>${ p.texte }</p>
+		    				</c:when>
+		    				<c:when test="${ p.imageLocation!=null }">
+		    					<img src="./include/images/cours/${ p.imageLocation }" alt="${ p.imageLocation }" /><br />
+		    				</c:when>
+		    			</c:choose>   			
+		            </c:forEach> 
+				</div>
+			</div>
+	    </div>
 		</section>
 <jsp:include page="footer.jsp" />

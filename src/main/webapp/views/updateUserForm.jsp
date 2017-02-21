@@ -11,6 +11,7 @@
 			<div class="row">
 				<div class="col-md-5">
 					<h1>Modification Profil</h1>
+					
 					<c:url value="/profil" var="url"></c:url>
 	    			<a href="${url}"><button class="btn btn-lg bouton">Retour</button></a>
 	    			<c:url value="/updatePassword" var="url"></c:url>
@@ -21,7 +22,7 @@
 		
 		<div class="container">
 			<div class="row">
-				<form:form method="post" class="form col-md-5 center-block" modelAttribute="modification" action="updateUserSubmit">
+				<form:form method="post" class="form col-md-5 center-block" modelAttribute="modification" action="updateUserSubmit" enctype="multipart/form-data">
 	            
 					<input type="hidden" name="id" value="${user.id}"/>
 					

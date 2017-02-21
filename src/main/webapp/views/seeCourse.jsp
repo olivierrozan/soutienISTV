@@ -9,8 +9,8 @@
 	<section>
 		<div class="container">
 			<h1>${ libelle }</h1>
-			<c:url value="/myCourses" var="url"></c:url>
-    		<a href="${url}"><button class="btn btn-lg bouton">Retour</button></a>
+			
+			<a><button class="btn btn-lg bouton" onclick="history.back(-1)">Retour</button></a>
     	
 			<c:forEach items="${paragraphes}" var="p">	            	            
     			<c:choose>

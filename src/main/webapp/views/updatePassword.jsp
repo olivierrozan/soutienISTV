@@ -13,7 +13,13 @@
 		<c:url value="/profil" var="url"></c:url>
     	<a href="${url}"><button class="btn btn-lg bouton">Retour</button></a>
     	    	
-		<h1>MODIFIER MOT DE PASSE <c:out value="${param.id}"/></h1>
+		<h1>MODIFIER MOT DE PASSE</h1>
+		<c:choose>
+			<c:when test="${ not empty ok }">
+				<b><i class="alert alert-success">${ok}</i></b>	
+			</c:when>
+		</c:choose>
+			
 		<div class="jumbotron">
 			<div class="row">
 				<form:form method="post" commandname="UpdatePasswordform" class="form col-md-12 center-block" modelAttribute="updatePWD" action="updatePasswordSubmit">

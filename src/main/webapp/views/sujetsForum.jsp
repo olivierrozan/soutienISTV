@@ -14,7 +14,20 @@
 		<c:url value="/themeForum" var="url"></c:url>
     	<a href="${url}"><button class="btn btn-lg bouton">Retour</button></a>
     	
-		<h1>FORUM</h1>
+		<h3>${ libelleTheme } : Les sujets</h3>
+		<form:form method="post" modelAttribute="sujet" action="createSujetSubmit" class="form center-block">         
+	        <div class="form-group">
+	        	<input type="hidden" name="fk_idTheme" value="${ idTheme }"/>
+	        	<input type="hidden" name="theme.libelleTheme" value="${ libelleTheme }"/>
+	        	
+	        	<b><i class="error"><form:errors path="titre" cssclass="error"/></i></b>
+	        	<input type="text" name="titre" placeholder="Titre Sujet" class="form-control input-lg"/>
+	        	<button type="submit" class="btn btn-primary btn-sm">
+	        		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+	        		Ajouter sujet
+				</button>
+	        </div>											         
+	    </form:form>
 		<table class="table table-striped">
 			<tr>
 				<th>TITRE</th>
@@ -23,18 +36,20 @@
 				<th>DERNIER POST ECRIT PAR</th>
 			</tr>
 			
-			<c:forEach items="${sujets}" var="sujets">	            	            
+			<c:forEach items="${sujets}" var="sujet">	            	            
 				<tr>
 					<td>
+					
 					<form:form method="post" modelAttribute="onePost" action="post" class="form center-block">
-			         	<input type="hidden" name="id" value="${ sujets.id }"/>
-			         	<input type="hidden" name="titre" value="${ sujets.titre }"/>
-			         	<input type="submit" class="btn btn-primary" value="${sujets.titre}"/><br />
+			         	<input type="hidden" name="id" value="${ sujet.id }"/>
+			         	<input type="hidden" name="titre" value="${ sujet.titre }"/>
+			         	<input type="hidden" name="etat" value="${ sujet.etat }"/>
+			         	<input type="submit" class="btn btn-primary" value="${sujet.titre}"/><br />
 	     			</form:form>
 					</td>
-					<td>${sujets.etat}</td>
-					<td><fmt:formatDate value="${sujets.user.dateDerniereModif}" pattern="EEEEE d MMMMM yyyy HH:mm:ss" /></td>
-					<td>${sujets.user.login}</td>
+					<td>${sujet.etat}</td>
+					<td><fmt:formatDate value="${sujet.user.dateDerniereModif}" pattern="EEEEE d MMMMM yyyy HH:mm:ss" /></td>
+					<td>${sujet.user.login}</td>
 				</tr>
 	        </c:forEach>
 		</table>

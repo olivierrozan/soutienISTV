@@ -21,7 +21,7 @@
     	
 		<h1>AJOUTER CONTENU ${ idCours }</h1>
 		
-	<form:form method="post" modelAttribute="creationCoursContenu" action="addCourseContent" class="form center-block">
+	<form:form method="post" modelAttribute="creationCoursContenu" action="addCourseContent" class="form center-block" enctype="multipart/form-data">
          <b><i class="error"><form:errors path="fk_idCours" cssclass="error"/></i></b>
 		<div class="paragraphes">
 			
@@ -73,7 +73,8 @@
 	    ram += '<c:forEach items="${creationCoursContenu.paragraphes}" var="contact" varStatus="status">';
 	    ram += '<input type="hidden" name="paragraphes[' + (order-1) + '].ordre" value="' + order + '"/>';
 	    ram += '<input type="hidden" name="fk_idCours" value="' + ${ idCours } + '"/>';
-	    ram += '<input type="file" class="form-control input-lg" name="paragraphes[' + (order-1) + '].imageLocation" placeholder="Image"/>';
+	    //ram += '<input type="file" class="form-control input-lg" name="paragraphes[' + (order-1) + '].imageLocation" placeholder="Image"/>';
+	    ram += '<input type="file" class="form-control input-lg" name="images[]" placeholder="Image"/>';
 	    ram += '</c:forEach>';
 	    ram += '</div><br />';
 	

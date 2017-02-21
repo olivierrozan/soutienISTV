@@ -20,4 +20,23 @@ public class SujetsServices implements ISujetsServices {
 	public List<Sujet> getSujets(int id) {
 		return dao.getSujets(id);
 	}
+	
+	@Transactional(readOnly=true)
+	public List<Sujet> getSujetsByName(String libelle) {
+		return dao.getSujetsByName(libelle);
+	}
+	
+	@Transactional
+	public void createSujet(Sujet s, String id) {
+		dao.createSujet(s, id);
+	}
+	
+	public int getSujetId(String libelle) {
+		return dao.getSujetId(libelle);
+	}
+	
+	@Transactional
+	public List<Sujet> getLastSujets() {
+		return dao.getLastSujets();
+	}
 }

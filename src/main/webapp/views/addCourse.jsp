@@ -15,7 +15,7 @@
     	
 		<h1>AJOUTER COURS</h1>
 		
-	<form:form method="post" modelAttribute="creationCours" action="addCourse" class="form center-block">
+	<form:form method="post" modelAttribute="creationCours" action="addCourse" class="form center-block" enctype="multipart/form-data">
          <!--<spring:message code="creation.users.login" />-->
          <div class="form-group col-sm-6">
          	<label for="libelle">Titre du cours (8 à 64 caractères)</label><br />
@@ -25,7 +25,6 @@
          
          <div class="form-group col-sm-6">
 	         <label for="img">Logo du cours</label><br />
-	         <b><i><form:errors path="ImageTitre" cssclass="error"/></i></b>
 	         <input type="file" id="img" name="imageTitre" placeholder="ImageTitre" class="form-control input-lg" style="width:400px;"/>
 	         
          </div>
